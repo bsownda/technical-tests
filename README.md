@@ -1,7 +1,6 @@
 Simple Docker and Kubernetes Tests
-1. Multistage dockerfile
+# Multistage dockerfile
 
-# builder image
 FROM golang:alpine as stage1
 
 ENV GO111MODULE=on
@@ -16,27 +15,26 @@ RUN apk add git
 
 RUN go build -o golang-test  .
 
-# generate clean, final image for end users
 FROM golang:alpine as stage2
 
 WORKDIR /data
 
 COPY --from=stage1 /app/golang-test .
 
-# executable
 ENTRYPOINT ["/data/golang-test"]
 
 EXPOSE 8000
 
-2. Kubernetes deployment steps
-
- 1. git clone to my fork repo (git clone https://github.com/bsownda/technical-tests.git)
- 2. Docker image build 
+# Kubernetes deployment steps
+  
+   # Deployment 
+   1. git clone to my fork repo (git clone https://github.com/bsownda/technical-tests.git)
+   2. Docker image build 
    docker build -t golang-test .
- 3. Docker push  using dockerhub credentials 
+   3. Docker push  using dockerhub credentials 
    docker tag golang-test:latest bsownda/golang-test:latest
    docker push bsownda/golang-test:latest
- 4. Kubernetes manifest files (Kubernetes_manifest)
+   4. Kubernetes manifest files (Kubernetes_manifest)
     deployment.yaml
     I have created simple kubernetes manifest file for deployment with two replicas
     image : bsownda/golang-test:latest
@@ -45,6 +43,8 @@ EXPOSE 8000
 
 
     kubectl apply -f deployment.yaml
+
+    # exposing service
 
     service.yaml --> exposing 8000 using service.yaml, which is contain service type,selector ,protocal and port 
 
@@ -60,7 +60,8 @@ EXPOSE 8000
 
     I am using ClusterIP on kubernetes service manifest .
 
-
+    # HPA
+    
     Horizontal Pod Autoscaler
 
     The Horizontal Pod Autoscaler automatically scales the number of Pods in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with custom metrics support, on some other application-provided metrics). Note that Horizontal Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
