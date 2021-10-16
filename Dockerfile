@@ -25,4 +25,4 @@ ENTRYPOINT ["/data/golang-test"]
 
 EXPOSE 8000
 
-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
+
