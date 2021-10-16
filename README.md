@@ -48,9 +48,9 @@ EXPOSE 8000
 
     kubectl apply -f deployment.yaml
 
-# exposing service
+# Exposing service
 
-    kubectl apply -f service.yaml
+    
 
     service.yaml --> exposing 8000 using service.yaml, which is contain service type,selector ,protocal and port 
 
@@ -65,6 +65,8 @@ EXPOSE 8000
     ExternalName - Maps the Service to the contents of the externalName field (e.g. foo.bar.example.com), by returning a CNAME record with its value. No proxying of any kind is set up. This type requires v1.7 or higher of kube-dns, or CoreDNS version 0.0.8 or higher.
 
     I am using ClusterIP on kubernetes service manifest .
+
+    kubectl apply -f service.yaml 
 
  # HPA
 
