@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golang-test
+  namespace: golang-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: golang-test
+  template:
+    metadata:
+      labels:
+        app: golang-test
+        name: golang-test
+    spec:
+      containers:
+      - image: bsownda/golang-test:latest
+        imagePullPolicy: IfNotPresent
+        name: golang-test
+        ports:
+        - containerPort: 8000
+          name: http-cd
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi

@@ -1,0 +1,11 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: golang-test
+spec:
+  scaleTargetRef:
+    kind: ReplicaSet
+    name: golang-test
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 50

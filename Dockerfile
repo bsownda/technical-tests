@@ -1,5 +1,5 @@
 # builder image
-FROM golang:alpine as stage2
+FROM golang:alpine as stage1
 
 ENV GO111MODULE=on
 
@@ -14,7 +14,7 @@ RUN apk add git
 RUN go build -o golang-test  .
 
 # generate clean, final image for end users
-FROM golang:alpine as stage1
+FROM golang:alpine as stage2
 
 WORKDIR /data
 
