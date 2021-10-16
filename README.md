@@ -29,11 +29,15 @@ EXPOSE 8000
   
    # Deployment 
    1. git clone to my fork repo (git clone https://github.com/bsownda/technical-tests.git)
+
    2. Docker image build 
    docker build -t golang-test .
+
    3. Docker push  using dockerhub credentials 
    docker tag golang-test:latest bsownda/golang-test:latest
+
    docker push bsownda/golang-test:latest
+
    4. Kubernetes manifest files (Kubernetes_manifest)
     deployment.yaml
     I have created simple kubernetes manifest file for deployment with two replicas
@@ -44,7 +48,9 @@ EXPOSE 8000
 
     kubectl apply -f deployment.yaml
 
-    # exposing service
+# exposing service
+
+    kubectl apply -f service.yaml
 
     service.yaml --> exposing 8000 using service.yaml, which is contain service type,selector ,protocal and port 
 
@@ -60,8 +66,8 @@ EXPOSE 8000
 
     I am using ClusterIP on kubernetes service manifest .
 
-    # HPA
-    
+ # HPA
+
     Horizontal Pod Autoscaler
 
     The Horizontal Pod Autoscaler automatically scales the number of Pods in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with custom metrics support, on some other application-provided metrics). Note that Horizontal Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
