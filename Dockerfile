@@ -1,4 +1,5 @@
-FROM golang:alpine
+# builder image
+FROM golang:alpine as stage2
 
 ENV GO111MODULE=on
 
@@ -12,6 +13,14 @@ RUN apk add git
 
 RUN go build -o golang-test  .
 
-ENTRYPOINT ["/app/golang-test"]
+# generate clean, final image for end users
+FROM golang:alpine as stage2
+
+WORKDIR /data
+
+COPY --from=stage1 /app/golang-test .
+
+# executable
+ENTRYPOINT ["/data/golang-test"]
 
 EXPOSE 8000
